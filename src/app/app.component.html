@@ -1,0 +1,25 @@
+<div class="container">
+  <h2>Первое дерево</h2>
+  <app-tree
+    [nodeTemplate]="firstTreeTemplate"
+    [nodes]="treeNodes()"
+    [onNodeAction]="handleFirstTreeAction" />
+
+  <h2>Второе дерево</h2>
+  <app-tree [nodeTemplate]="secondTreeTemplate" [nodes]="treeNodes()" />
+</div>
+
+<ng-template #firstTreeTemplate let-expand="expand" let-node>
+  <span>ID: {{ node.id }}, {{ node.title }}</span>
+  <button class="action-button" (click)="handleFirstTreeAction(node)">
+    Логировать ID
+  </button>
+</ng-template>
+
+<ng-template #secondTreeTemplate let-expand="expand" let-node>
+  <span>{{ node.title }}</span>
+  @if (node.children && node.children.length > 0) {
+    <span class="children-count">({{ node.children.length }})</span>
+    <button class="action-button" (click)="expand()">Раскрыть все</button>
+  }
+</ng-template>

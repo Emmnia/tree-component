@@ -1,0 +1,8 @@
+<div class="tree">
+  @for (node of nodes(); track node.id) {
+    <app-tree-node
+      [node]="node"
+      [nodeTemplate]="nodeTemplate()"
+      [onNodeAction]="onNodeAction()" />
+  }
+</div>
