@@ -1,10 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
+  computed,
+  effect,
   input,
+  signal,
   TemplateRef,
-  viewChild,
   viewChildren,
 } from '@angular/core';
 import { TreeNode } from '../interfaces';
@@ -22,18 +23,44 @@ export class TreeNodeComponent {
   readonly nodeTemplate = input.required<TemplateRef<unknown>>();
   readonly onNodeAction = input<(node: TreeNode) => void>();
 
-  readonly detailsElement =
-    viewChild<ElementRef<HTMLDetailsElement>>('detailsElement');
   readonly childComponents = viewChildren(TreeNodeComponent);
 
-  expandAll(): void {
-    const details = this.detailsElement();
-    if (details) {
-      details.nativeElement.open = true;
+  readonly isExpanded = signal(false);
+  private readonly expandRecursively = signal(false);
+
+  readonly areAllChildrenExpanded = computed<boolean>((): boolean => {
+    if (!this.isExpanded()) {
+      return false;
     }
 
-    setTimeout(() => {
-      this.childComponents().forEach((child) => child.expandAll());
-    });
+    return this.childComponents().every((child) =>
+      child.areAllChildrenExpanded(),
+    );
+  });
+
+  constructor() {
+    effect(
+      () => {
+        if (this.isExpanded() && this.expandRecursively()) {
+          this.childComponents().forEach((child) => child.expandAll());
+
+          this.expandRecursively.set(false);
+        }
+      },
+      { allowSignalWrites: true },
+    );
+  }
+
+  expandAll(): void {
+    this.expandRecursively.set(true);
+    this.isExpanded.set(true);
+  }
+
+  onToggle(event: Event): void {
+    const detailsElement = event.target as HTMLDetailsElement;
+
+    if (this.isExpanded() !== detailsElement.open) {
+      this.isExpanded.set(detailsElement.open);
+    }
   }
 }

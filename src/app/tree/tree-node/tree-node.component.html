@@ -1,11 +1,12 @@
 @if (node().children && node().children.length > 0) {
-  <details #detailsElement>
+  <details #detailsElement [open]="isExpanded()" (toggle)="onToggle($event)">
     <summary class="node-content" [class.deleted]="node().is_deleted">
       <ng-container
         [ngTemplateOutlet]="nodeTemplate()"
         [ngTemplateOutletContext]="{
           $implicit: node(),
           expand: expandAll.bind(this),
+          isFullyExpanded: areAllChildrenExpanded,
         }" />
     </summary>
     <div class="children">

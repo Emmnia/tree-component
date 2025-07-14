@@ -13,7 +13,7 @@ import DATA from './data.json';
 export class AppComponent {
   readonly treeNodes = signal<TreeNode[]>(DATA);
 
-  handleFirstTreeAction = (node: TreeNode): void => {
+  handleFirstTreeAction(node: TreeNode): void {
     console.log(`Нажали на узел ID ${node.id}`);
   }
 }
