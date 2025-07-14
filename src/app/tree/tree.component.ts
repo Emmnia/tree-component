@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, input, TemplateRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  TemplateRef,
+} from '@angular/core';
 import { TreeNode } from './interfaces';
 import { TreeNodeComponent } from './tree-node/tree-node.component';
 
@@ -11,6 +16,6 @@ import { TreeNodeComponent } from './tree-node/tree-node.component';
 })
 export class TreeComponent {
   readonly nodes = input.required<TreeNode[]>();
-  readonly nodeTemplate = input.required<TemplateRef<any>>();
+  readonly nodeTemplate = input.required<TemplateRef<unknown>>();
   readonly onNodeAction = input<(node: TreeNode) => void>();
 }
