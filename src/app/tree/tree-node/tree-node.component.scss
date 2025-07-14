@@ -4,14 +4,36 @@ details {
 }
 
 summary {
+  display: flex;
   padding: 8px 0;
   cursor: pointer;
   user-select: none;
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &::before {
+    content: '';
+    margin-top: 3px;
+    margin-right: 8px;
+    width: 18px;
+    height: 10px;
+    background: url('https://uploads.sitepoint.com/wp-content/uploads/2023/10/1697699669arrow.svg')
+      no-repeat;
+    background-size: cover;
+    transition: transform 0.2s;
+  }
+}
+
+details[open] > summary::before {
+  transform: rotate(180deg);
 }
 
 .node-content.empty {
   padding: 8px 0;
-  padding-left: 15px;
+  padding-left: 26px;
 }
 
 .node-content.deleted {

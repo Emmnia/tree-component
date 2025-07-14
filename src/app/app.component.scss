@@ -1,29 +1,33 @@
 .container {
-    padding: 20px;
-    font-family: sans-serif;
+  padding: 20px;
+  font-family: sans-serif;
 }
 
 h2 {
-    margin-top: 30px;
-    margin-bottom: 15px;
+  margin-top: 30px;
+  margin-bottom: 15px;
 }
 
 .action-button {
-    margin-left: 10px;
-    padding: 4px 8px;
-    font-size: 12px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    background: white;
-    border-radius: 4px;
-}
+  margin-left: 10px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 4px;
 
-.action-button:hover {
+  &:hover {
     background: #f0f0f0;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
 }
 
 .children-count {
-    margin-left: 5px;
-    color: #666;
-    font-size: 14px;
+  margin-left: 5px;
+  color: #666;
+  font-size: 14px;
 }
