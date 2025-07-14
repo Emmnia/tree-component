@@ -39,16 +39,13 @@ export class TreeNodeComponent {
   });
 
   constructor() {
-    effect(
-      () => {
-        if (this.isExpanded() && this.expandRecursively()) {
-          this.childComponents().forEach((child) => child.expandAll());
+    effect(() => {
+      if (this.isExpanded() && this.expandRecursively()) {
+        this.childComponents().forEach((child) => child.expandAll());
 
-          this.expandRecursively.set(false);
-        }
-      },
-      { allowSignalWrites: true },
-    );
+        this.expandRecursively.set(false);
+      }
+    });
   }
 
   expandAll(): void {
